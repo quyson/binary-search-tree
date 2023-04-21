@@ -5,7 +5,29 @@ class Node {
 }
 
 class Tree {
-  constructor(array) {
-    (this.array = array), (this.root = null);
+  constructor() {
+    this.root = null;
   }
+
+  buildtree = (array) => {
+    const uniqueSortedData = [...new Set(array)].sort((a, b) => a - b);
+    const root = this.buildTreeRecursive(
+      uniqueSortedData,
+      0,
+      uniqueSortedData.length - 1
+    );
+    this.root = root;
+    return this.root;
+  };
+
+  buildTreeRecursive = (array, start, end) => {
+    if (start > end) {
+      return null;
+    }
+    const middle = Math.floor((start + end) / 2);
+    const newNode = new Node(array[middle]);
+    newNode.left = this.buildTreeRecursive(array, start, middle - 1);
+    newNode.right = this.buildTreeRecursive(array, middle + 1, end);
+    return Node;
+  };
 }
