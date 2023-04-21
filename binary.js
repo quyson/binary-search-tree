@@ -54,6 +54,20 @@ class Tree {
       }
     }
   };
+
+  find(value) {
+    let current = this.root;
+    while (current !== null) {
+      if (value === current.data) {
+        return current;
+      } else if (value < current.data) {
+        current = current.left;
+      } else {
+        current = current.right;
+      }
+    }
+    return null;
+  }
 }
 
 const prettyPrint = (node, prefix = "", isLeft = true) => {
@@ -75,3 +89,4 @@ console.log(tree.root);
 prettyPrint(tree.root);
 tree.insert(26);
 prettyPrint(tree.root);
+console.log(tree.find(26));
