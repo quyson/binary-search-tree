@@ -30,6 +30,30 @@ class Tree {
     newNode.right = this.buildTreeRecursive(array, middle + 1, end);
     return newNode;
   };
+
+  insert = (data) => {
+    const node = new Node(data);
+    if (!this.root) {
+      this.root = node;
+    }
+    let current = this.root;
+    while (current) {
+      if (data < current.data) {
+        if (!current.left) {
+          current.left = node;
+          return;
+        }
+        current = current.left;
+      }
+      if (data > current.data) {
+        if (!current.right) {
+          current.right = node;
+          return;
+        }
+        current = current.right;
+      }
+    }
+  };
 }
 
 const prettyPrint = (node, prefix = "", isLeft = true) => {
@@ -48,4 +72,6 @@ const prettyPrint = (node, prefix = "", isLeft = true) => {
 const tree = new Tree();
 tree.buildTree([55, 2, 6, 6, 9, 8, 11, 3, 15, 49]);
 console.log(tree.root);
+prettyPrint(tree.root);
+tree.insert(26);
 prettyPrint(tree.root);
