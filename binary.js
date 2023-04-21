@@ -9,7 +9,7 @@ class Tree {
     this.root = null;
   }
 
-  buildtree = (array) => {
+  buildTree = (array) => {
     const uniqueSortedData = [...new Set(array)].sort((a, b) => a - b);
     const root = this.buildTreeRecursive(
       uniqueSortedData,
@@ -28,6 +28,10 @@ class Tree {
     const newNode = new Node(array[middle]);
     newNode.left = this.buildTreeRecursive(array, start, middle - 1);
     newNode.right = this.buildTreeRecursive(array, middle + 1, end);
-    return Node;
+    return newNode;
   };
 }
+
+const tree = new Tree();
+tree.buildTree([55, 2, 6, 6, 9, 8, 11, 3, 15, 49]);
+console.log(tree.root);
