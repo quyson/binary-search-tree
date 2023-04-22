@@ -177,6 +177,11 @@ class Tree {
 
     return this.isBalanced(node.left) && this.isBalanced(node.right);
   };
+
+  rebalance = () => {
+    const values = [...this.inorder()];
+    this.root = this.buildTree(values);
+  };
 }
 
 const prettyPrint = (node, prefix = "", isLeft = true) => {
@@ -198,4 +203,7 @@ console.log(tree.root);
 prettyPrint(tree.root);
 tree.insert(69);
 tree.insert(99);
+console.log(tree.isBalanced(tree.root));
+tree.rebalance();
+prettyPrint(tree.root);
 console.log(tree.isBalanced(tree.root));
