@@ -116,6 +116,34 @@ class Tree {
 
     return nodes;
   };
+
+  inorder = () => {
+    const nodes = [];
+
+    const traverse = (node) => {
+      if (node.left) traverse(node.left);
+      nodes.push(node.data);
+      if (node.right) traverse(node.right);
+    };
+
+    traverse(this.root);
+
+    return nodes;
+  };
+
+  postorder = () => {
+    const nodes = [];
+
+    const traverse = (node) => {
+      if (node.left) traverse(node.left);
+      if (node.right) traverse(node.right);
+      nodes.push(node.data);
+    };
+
+    traverse(this.root);
+
+    return nodes;
+  };
 }
 
 const prettyPrint = (node, prefix = "", isLeft = true) => {
@@ -137,3 +165,5 @@ console.log(tree.root);
 prettyPrint(tree.root);
 console.log(tree.levelOrder());
 console.log(tree.preorder());
+console.log(tree.inorder());
+console.log(tree.postorder());
