@@ -149,10 +149,19 @@ class Tree {
     if (!node) {
       return -1;
     }
-    const leftHeight = height(node.left);
-    const rightHeight = height(node.right);
+    const leftHeight = this.height(node.left);
+    const rightHeight = this.height(node.right);
     return 1 + Math.max(leftHeight, rightHeight);
   };
+
+  findDepth(node) {
+    if (!node) {
+      return 0;
+    }
+    const leftDepth = this.findDepth(node.left);
+    const rightDepth = this.findDepth(node.right);
+    return Math.max(leftDepth, rightDepth) + 1;
+  }
 }
 
 const prettyPrint = (node, prefix = "", isLeft = true) => {
@@ -172,7 +181,5 @@ const tree = new Tree();
 tree.buildTree([55, 2, 6, 6, 9, 8, 11, 3, 15, 49]);
 console.log(tree.root);
 prettyPrint(tree.root);
-console.log(tree.levelOrder());
-console.log(tree.preorder());
-console.log(tree.inorder());
-console.log(tree.postorder());
+console.log(tree.height(tree.root));
+console.log(tree.findDepth(tree.root));
