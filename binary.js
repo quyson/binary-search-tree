@@ -102,6 +102,20 @@ class Tree {
 
     return values;
   };
+
+  preorder = () => {
+    const nodes = [];
+
+    const traverse = (node) => {
+      nodes.push(node.data);
+      if (node.left) traverse(node.left);
+      if (node.right) traverse(node.right);
+    };
+
+    traverse(this.root);
+
+    return nodes;
+  };
 }
 
 const prettyPrint = (node, prefix = "", isLeft = true) => {
@@ -122,3 +136,4 @@ tree.buildTree([55, 2, 6, 6, 9, 8, 11, 3, 15, 49]);
 console.log(tree.root);
 prettyPrint(tree.root);
 console.log(tree.levelOrder());
+console.log(tree.preorder());
