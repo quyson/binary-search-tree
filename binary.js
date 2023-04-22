@@ -144,6 +144,15 @@ class Tree {
 
     return nodes;
   };
+
+  height = (node) => {
+    if (!node) {
+      return -1;
+    }
+    const leftHeight = height(node.left);
+    const rightHeight = height(node.right);
+    return 1 + Math.max(leftHeight, rightHeight);
+  };
 }
 
 const prettyPrint = (node, prefix = "", isLeft = true) => {
