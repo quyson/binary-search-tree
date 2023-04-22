@@ -55,7 +55,7 @@ class Tree {
     }
   };
 
-  find(value) {
+  find = (value) => {
     let current = this.root;
     while (current !== null) {
       if (value === current.data) {
@@ -67,7 +67,41 @@ class Tree {
       }
     }
     return null;
-  }
+  };
+
+  delete = (value) => {};
+
+  levelOrder = (callback = null) => {
+    if (!this.root) {
+      return [];
+    }
+
+    const queue = [this.root];
+    const values = [];
+
+    while (queue.length > 0) {
+      const node = queue.shift();
+      values.push(node.data);
+
+      if (callback) {
+        callback(node);
+      }
+
+      if (node.left) {
+        queue.push(node.left);
+      }
+
+      if (node.right) {
+        queue.push(node.right);
+      }
+    }
+
+    if (callback) {
+      return;
+    }
+
+    return values;
+  };
 }
 
 const prettyPrint = (node, prefix = "", isLeft = true) => {
@@ -87,6 +121,4 @@ const tree = new Tree();
 tree.buildTree([55, 2, 6, 6, 9, 8, 11, 3, 15, 49]);
 console.log(tree.root);
 prettyPrint(tree.root);
-tree.insert(26);
-prettyPrint(tree.root);
-console.log(tree.find(26));
+console.log(tree.levelOrder());
