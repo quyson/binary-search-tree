@@ -182,6 +182,41 @@ class Tree {
     const values = [...this.inorder()];
     this.root = this.buildTree(values);
   };
+
+  min = (root) => {
+    if (!root.left) {
+      return root.data;
+    } else {
+      return this.min(root.left);
+    }
+  };
+
+  delete = (value) => {
+    this.root = this.deleteNode(this.root, value);
+  };
+
+  deleteNode = (root, value) => {
+    if (root == null) {
+      return root;
+    }
+    if (value < root.data) {
+      root.left = this.deleteNode(root.left, value);
+    } else if (value > root.data) {
+      root.right = this.deleteNode(root.right, value);
+    } else {
+      if (!root.left && !root.right) {
+        return null;
+      }
+      if (!root.left) {
+        return root.right;
+      } else if (!root.right) {
+        return root.left;
+      }
+      root.data = this.min(root.right);
+      root.right = this.deleteNode(root.right, root.data);
+    }
+    return root;
+  };
 }
 
 const prettyPrint = (node, prefix = "", isLeft = true) => {
@@ -198,12 +233,15 @@ const prettyPrint = (node, prefix = "", isLeft = true) => {
 };
 
 const tree = new Tree();
-tree.buildTree([55, 2, 6, 6, 9, 8, 11, 3, 15, 49]);
+tree.buildTree([55, 2, 6, 9, 8, 11, 3, 15, 49]);
 console.log(tree.root);
 prettyPrint(tree.root);
 tree.insert(69);
 tree.insert(99);
-console.log(tree.isBalanced(tree.root));
+tree.insert(26);
 tree.rebalance();
 prettyPrint(tree.root);
-console.log(tree.isBalanced(tree.root));
+tree.delete(49);
+
+console.log("ok");
+prettyPrint(tree.root);
